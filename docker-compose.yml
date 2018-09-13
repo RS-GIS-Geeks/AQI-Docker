@@ -1,0 +1,65 @@
+version: '3'
+services:
+    nginx:
+        image: "${ENV_DOCKER_USER}/aqi-nginx:1.0.0"
+        build:
+            context: nginx/
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - uwsgi-sock:/var/aqi/django-sock
+            - static-files:/usr/share/nginx/html/static
+            - logs:/var/aqi/logs
+        ports:
+            - "${ENV_NGINX_PORT}:8070"
+        networks:
+            - network
+        depends_on:
+            - django
+    django:
+        image: "${ENV_DOCKER_USER}/aqi-django:1.0.0"
+        build:
+            context: django/
+            dockerfile: Dockerfile
+        restart: always
+        environment:
+            POSTGRES_HOST: "postgis"
+            POSTGRES_PORT: "5432"
+            POSTGRES_DB: "${ENV_POSTGRES_DB}"
+            POSTGRES_USER: "${ENV_POSTGRES_USER}"
+            POSTGRES_PASSWD: "${ENV_POSTGRES_PASSWD}"
+        volumes:
+            - uwsgi-sock:/var/aqi/uwsgi-sock
+            - static-files:/opt/aqi/static
+            - logs:/var/aqi/logs
+        networks:
+            - network
+        depends_on:
+            - postgis
+    postgis:
+        image: "${ENV_DOCKER_USER}/aqi-postgis:1.0.0"
+        build:
+            context: postgis/
+            dockerfile: Dockerfile
+        restart: always
+        environment:
+            POSTGRES_USER: ${ENV_POSTGRES_USER}
+            POSTGRES_PASSWD: ${ENV_POSTGRES_PASSWD}
+            POSTGRES_PASSWORD: ${ENV_POSTGRES_PASSWD_ADMIN}
+            POSTGRES_DB: ${ENV_POSTGRES_DB}
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_INITDB_XLOGDIR: /var/aqi/logs/postgresql
+        volumes:
+            - postgresql-data:/var/lib/postgresql/data
+            - logs:/var/aqi/logs
+        ports:
+            - "${ENV_POSTGIS_PORT}:5432"
+        networks:
+            - network
+volumes:
+    postgresql-data:
+    uwsgi-sock:
+    static-files:
+    logs:
+networks:
+    network:

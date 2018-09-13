@@ -1,0 +1,26 @@
+
+
+image: ubuntu
+
+services:
+  - docker
+
+init:
+  - curl -L https://github.com/docker/compose/releases/download/1.21.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker-compose build
+
+build_script:
+  - docker-compose up -d
+  # - sleep 10s
+
+# before_test:
+#   - docker exec -i $(docker ps -a | grep django | cut -c1-12) python manage.py migrate
+#   - sleep 3s
+
+# test_script:
+  # - chmod +x .appveyor/test
+  # - .appveyor/test http://127.0.0.1:2101/web/#/dashboard
