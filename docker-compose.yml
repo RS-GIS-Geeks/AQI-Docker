@@ -26,11 +26,11 @@ services:
             POSTGRES_HOST: "postgis"
             POSTGRES_PORT: "5432"
             POSTGRES_DB: "${ENV_POSTGRES_DB}"
-            POSTGRES_USER: "${ENV_POSTGRES_USER}"
-            POSTGRES_PASSWD: "${ENV_POSTGRES_PASSWD}"
+            POSTGRES_USER_FOR_DB: "${ENV_POSTGRES_USER}"
+            POSTGRES_PASSWD_FOR_USER: "${ENV_POSTGRES_PASSWD}"
         volumes:
             - uwsgi-sock:/var/aqi/uwsgi-sock
-            - static-files:/opt/aqi/static
+            - static-files:/opt/aqidjango/static
             - logs:/var/aqi/logs
         networks:
             - network
@@ -43,10 +43,10 @@ services:
             dockerfile: Dockerfile
         restart: always
         environment:
-            POSTGRES_USER: ${ENV_POSTGRES_USER}
-            POSTGRES_PASSWD: ${ENV_POSTGRES_PASSWD}
-            POSTGRES_PASSWORD: ${ENV_POSTGRES_PASSWD_ADMIN}
+            POSTGRES_USER_FOR_DB: ${ENV_POSTGRES_USER}
+            POSTGRES_PASSWD_FOR_USER: ${ENV_POSTGRES_PASSWD}
             POSTGRES_DB: ${ENV_POSTGRES_DB}
+            POSTGRES_PASSWORD: ${ENV_POSTGRES_PASSWD_ADMIN}
             PGDATA: /var/lib/postgresql/data/pgdata
             POSTGRES_INITDB_XLOGDIR: /var/aqi/logs/postgresql
         volumes:

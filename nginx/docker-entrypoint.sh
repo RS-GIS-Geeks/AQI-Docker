@@ -7,6 +7,8 @@ else
     echo "Directory '/var/aqi/logs/nginx' has already existed."
 fi
 
+sed -i "s?AQI_STATIC_FOLDER?/usr/share/nginx/html/static/${WEB_FOLDER}?" /etc/nginx/conf.d/default.conf \
+
 /usr/local/bin/django_check.sh
 /usr/local/bin/start_nginx.sh
 
