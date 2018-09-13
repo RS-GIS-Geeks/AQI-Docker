@@ -35,7 +35,7 @@ EOF
 
 rm -rf /opt/aqidjango/static/*
 
-# python manage.py migrate
+python manage.py migrate
 
 python manage.py collectstatic
 
