@@ -5,7 +5,7 @@ ENV TZ UTC
 ENV LANG C.UTF-8
 ENV WEB_REPO_URL https://github.com/CS-Tao/AQI-Visualization.git
 ENV WEB_REPO_BRANCH gh-pages
-ENV WEB_FOLDER web
+ENV WEB_FOLDER ./
 ENV WEB_OLD_SRC_URL http://localhost:2002
 ENV WEB_NEW_SRC_URL ../
 
