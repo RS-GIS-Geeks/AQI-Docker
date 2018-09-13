@@ -9,12 +9,12 @@ ENV POSTGIS_MAJOR 2.4
 
 RUN echo "Installing packages ..." \
       # <切换 apt 中国源>
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' > /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' > /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
       # </切换 apt 中国源>
       && apt-get update \
       && apt-get install -y --no-install-recommends \

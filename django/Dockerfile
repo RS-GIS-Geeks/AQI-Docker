@@ -8,12 +8,12 @@ ENV DJANGO_REPO_BRANCH docker
 
 RUN echo "Installing packages ..." \
       # <切换 apt 中国源>
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' > /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
-      && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' > /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
       # </切换 apt 中国源>
       && apt-get update \
       && apt-get install -y --no-install-recommends libgdal-dev git \
@@ -21,11 +21,12 @@ RUN echo "Installing packages ..." \
       && git clone ${DJANGO_REPO_URL} -b ${DJANGO_REPO_BRANCH} AQI-Background \
       && cd AQI-Background \
       && ls -a -l \
-      && mkdir -p ~/.pip/ \
-      && echo '[global]' > ~/.pip/pip.conf \
-      && echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> ~/.pip/pip.conf \
-      && echo '[install]' >> ~/.pip/pip.conf \
-      && echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> ~/.pip/pip.conf \
+      # <切换 pip 中国源>
+      # && mkdir -p ~/.pip/ \
+      # && echo '[global]' > ~/.pip/pip.conf \
+      # && echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> ~/.pip/pip.conf \
+      # && echo '[install]' >> ~/.pip/pip.conf \
+      # && echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> ~/.pip/pip.conf \
       # </切换 pip 中国源>
       && pip install -r requirements.txt \
       && apt-get purge -y --auto-remove git \
