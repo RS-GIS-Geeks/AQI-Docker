@@ -5,8 +5,9 @@ ENV TZ UTC
 ENV LANG C.UTF-8
 ENV WEB_REPO_URL https://github.com/CS-Tao/AQI-Visualization.git
 ENV WEB_REPO_BRANCH gh-pages
-ENV WEB_FOLDER ./
-ENV WEB_OLD_SRC_URL http://localhost:2002
+ENV WEB_FOLDER web
+ENV MAIN_WEB_FOLDER ./
+ENV WEB_OLD_SRC_URL http://localhost:2101
 ENV WEB_NEW_SRC_URL ../
 
 RUN echo "Installing packages ..." \
@@ -22,8 +23,8 @@ RUN echo "Installing packages ..." \
       && apt-get install -y --no-install-recommends ca-certificates git \
       && mkdir -p /usr/share/nginx/html/ \
       && cd /usr/share/nginx/html/ \
-      && git clone ${WEB_REPO_URL} -b ${WEB_REPO_BRANCH} aqi-visualization \
-      && cd aqi-visualization/${WEB_FOLDER} \
+      && git clone ${WEB_REPO_URL} -b ${WEB_REPO_BRANCH} ${WEB_FOLDER} \
+      && cd ${WEB_FOLDER}/${MAIN_WEB_FOLDER} \
       && sed -i "s?baseURL:\"${WEB_OLD_SRC_URL}\"?baseURL:\"${WEB_NEW_SRC_URL}\"?" web.js \
       && ls -a -l \
       && apt-get purge -y --auto-remove ca-certificates git \
