@@ -4,9 +4,9 @@ set -e
 apt-get update
 apt-get install -y --no-install-recommends ca-certificates git
 cd /usr/share/nginx/html/
-rm -rf aqi-visualization/
-git clone ${WEB_REPO_URL} -b ${WEB_REPO_BRANCH} aqi-visualization
-cd aqi-visualization/${WEB_FOLDER}
+rm -rf ${WEB_FOLDER}
+git clone ${WEB_REPO_URL} -b ${WEB_REPO_BRANCH} ${WEB_FOLDER}
+cd ${WEB_FOLDER}/${MAIN_WEB_FOLDER}
 sed -i "s?baseURL:\"${WEB_OLD_SRC_URL}\"?baseURL:\"${WEB_NEW_SRC_URL}\"?" web.js
 ls -a -l
 apt-get purge -y --auto-remove ca-certificates git

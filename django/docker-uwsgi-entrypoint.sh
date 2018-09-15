@@ -24,10 +24,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': '$POSTGRES_DB',
-        'USER': '$POSTGRES_USER',
+        'USER': '$POSTGRES_USER_FOR_DB',
         'HOST': '$POSTGRES_HOST',
         'PORT': '$POSTGRES_PORT',
-        'PASSWORD': '$POSTGRES_PASSWD',
+        'PASSWORD': '$POSTGRES_PASSWD_FOR_USER',
     }
 }
 
@@ -35,9 +35,12 @@ EOF
 
 rm -rf /opt/aqidjango/static/*
 
-# python manage.py migrate
-
 python manage.py collectstatic
+
+sleep 5
+
+python manage.py makemigrations
+python manage.py migrate
 
 # python manage.py runserver 0.0.0.0:8080
 

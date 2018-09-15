@@ -1,13 +1,22 @@
 FROM postgres:9.6
 LABEL maintainer="CS-Tao <whucstao@qq.com>" version="1.0.0"
 
-ENV PG_DUMPED_DATA_DEFAULT_URL https://github.com/CS-Tao/AQI-Docker/releases/download/v1.0.0/aqidb.sql
+ENV PG_DUMPED_DATA_DEFAULT_URL https://github.com/RS-GIS-Geeks/AQI-Docker/releases/download/v1.0.0/aqidb.sql
 
 ENV POSRGRESQL_MAJOR 9.6
 
 ENV POSTGIS_MAJOR 2.4
 
-RUN apt-get update \
+RUN echo "Installing packages ..." \
+      # <切换 apt 中国源>
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' > /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-proposed-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # && echo 'deb-src http://mirrors.ustc.edu.cn/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list \
+      # </切换 apt 中国源>
+      && apt-get update \
       && apt-get install -y --no-install-recommends \
             postgis \
             postgresql-${POSRGRESQL_MAJOR}-postgis-${POSTGIS_MAJOR} \
