@@ -20,6 +20,7 @@ RUN echo "Installing packages ..." \
       && cd /opt \
       && git clone ${DJANGO_REPO_URL} -b ${DJANGO_REPO_BRANCH} AQI-Background \
       && cd AQI-Background \
+      && git log -n1 \
       && ls -a -l \
       # <切换 pip 中国源>
       # && mkdir -p ~/.pip/ \
